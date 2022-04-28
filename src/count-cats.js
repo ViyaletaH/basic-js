@@ -33,7 +33,6 @@ function countCats(matrix) {
   return counter;
 
   }
-
 }
 
 module.exports = {
