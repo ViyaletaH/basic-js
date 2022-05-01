@@ -42,8 +42,8 @@ const { NotImplementedError } = require('../extensions/index.js');
           counter++;
         }
       }
-      console.log(arr, obj);
-    }
+      return arr;
+    } 
   }
   
 }
