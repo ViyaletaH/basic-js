@@ -15,7 +15,7 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
  function transform(baseArr) {
   let obj = {};
-  let counter = 0;
+  let removed;
   if (typeof baseArr == 'undefined' || baseArr === null || baseArr === false || typeof baseArr == 'number' || (typeof baseArr == 'object' && Array.isArray(baseArr) == false)) {
     throw new Error("\'arr\' parameter must be an instance of the Array!");
   }
@@ -39,11 +39,28 @@ const { NotImplementedError } = require('../extensions/index.js');
           arr.indexOf(arr[i]) == 0 ? arr.splice(0, 1) : obj[arr[i]] = arr.indexOf(arr[i]);
         }
         else {
-          counter++;
+          if (arr[i] == '--double-next') {
+            arr.splice((arr.indexOf(arr[i]) + 1), 0, arr[i + 1]);
+           removed = arr.splice(arr.indexOf(arr[i]), 1)
+          }
+          if (arr[i] == '--discard-next') {
+            arr.splice((arr.indexOf(arr[i]) + 1), 1);
+           removed = arr.splice(arr.indexOf(arr[i]), 1)
+          }
+          if (arr[i] == '--discard-prev') {
+            arr.splice((arr.indexOf(arr[i]) - 1), 1);
+           removed = arr.splice(arr.indexOf(arr[i - 1]), 1)
+          }
+          if (arr[i] === '--double-prev') {
+            
+            arr.splice((arr.indexOf(arr[i]) - 1), 0, arr[i - 1]);
+           removed = arr.splice(arr.indexOf(arr[i]), 1)
+            
+          }
         }
       }
       return arr;
-    } 
+    }
   }
   
 }
